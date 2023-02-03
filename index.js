@@ -12,6 +12,5 @@ app.use(express.urlencoded({extended:true}))
 
 app.listen(port, _ => {
     console.log(`Server running in port ${port}`)
-    console.log(process.env.URL_DB);
 })
 
