@@ -24,7 +24,6 @@ const saveCollaborator = async (req, res) => {
 const deleteCollaborator = async (req, res) => {
     try {
         const collaborator = await Collaborator.findByIdAndDelete(req.params.id)
-        if(!collaborator)return res.status(404)
         return res.send(collaborator)
     } catch (error) {
         return res.status(400).send(error)
