@@ -1,15 +1,43 @@
 const Collaborator = require("../models/Collaborator");
 
-const getCollaborator = async (req, res) => await Collaborator.find()
+const getCollaborator = async (req, res) => {
+    try {
+        const collaborator = await Collaborator.find({})
+        return res.send(collaborator)
+    } catch (error) {
+        return res.status(400).send(error)
+    }
+} 
 
 const saveCollaborator = async (req, res) => {
-    const collaborator = new Collaborator(req.body)
-    return await Collaborator.save()
+    try {
+        const collaborator = new Collaborator(req.body)
+        return await collaborator.save()
+    } catch (error) {
+        return res.status(400).json({
+            msg: `Error: ${error.message}`
+        })
+    }
+    
 }
 
-const deleteCollaborator = async (req, res) => await Collaborator.findByIdAndDelete(req.params.id)
+const deleteCollaborator = async (req, res) => {
+    try {
+        const collaborator = await Collaborator.findByIdAndDelete(req.params.id)
+        return res.send(collaborator)
+    } catch (error) {
+        return res.status(400).send(error)
+    }
+}
 
-const updateCollaborator = async (req, res) => await Collaborator.findByIdAndUpdate(req.params.id, req.body,{new:true})
+const updateCollaborator = async (req, res) => {
+    try {
+        const collaborator = await Collaborator.findByIdAndUpdate(req.params.id, req.body,{new:true})
+        return res.send(collaborator)
+    } catch (error) {
+        return res.status(500).send(error)
+    }
+}
 
 module.exports = {
     getCollaborator,
