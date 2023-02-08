@@ -8,6 +8,16 @@ const getUser = async (req, res) => await User.find()
 const saveUser = async (req, res) => {
 
    const { email, password, role } = req.body;
+   // Validar el formato del correo electrónico
+  const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  if (!emailRegex.test(email)) {
+    return res.status(400).send({ error: 'Email inválido' });
+  }
+   // Comprobar si el correo electrónico ya está registrado
+   const user = await User.findOne({ email });
+   if (user) {
+     return res.status(400).send({ error: 'Email ya está registrado' });
+   }
 
    const newUser = new User({
       email,
