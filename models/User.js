@@ -1,22 +1,25 @@
 const {Schema, model} = require("mongoose")
 
-const UserSchema = Schema({
+
+
+const UserSchema = new Schema({
    email: {
       type: String,
-      required: true,
+      required: [true, "El correo es necesario"]
    },
    password: {
       type: String,
-      required: true,
+      required: [true, "La contraseña es obligatoria"]
    },
    role: {
       type: String,
-      default: 'user',
+    default: 'USER',
    }
 },
 {
    versionKey: false,
 }
-)
+);
+
 
 module.exports = model("User", UserSchema)
