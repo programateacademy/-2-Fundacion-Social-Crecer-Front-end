@@ -4,20 +4,25 @@ const User = require("../models/User");
 const getUser = async (req, res) => await User.find()
 
 
-const saveUser = async (req, res) => {
-   console.log(req.body)
-   try {
-      const { body } = req
-      const user = new User(body)
-      const usersave = await user.save()
-      return res.status(200).json(usersave)
 
-   } catch (error) {
-      console.log(error)
-      return res.status(400).json({
-         msg: `Error: ${error.message}`
-      })
+const saveUser = async (req, res) => {
+
+   const { email, password, role } = req.body;
+   // Comprobar si el correo electrónico ya está registrado
+   const user = await User.findOne({ email });
+   if (user) {
+     return res.status(400).send({ error: 'Email ya está registrado' });
    }
+
+   const newUser = new User({
+      email,
+      password,
+      role
+   })
+   const savedU = await newUser.save();
+   return res.status(200).json({savedU});
+
+
 }
 
 const updateUser = async (req, res) => await User.findByIdAndUpdate(id)

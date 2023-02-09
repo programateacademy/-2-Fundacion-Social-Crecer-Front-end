@@ -3,47 +3,139 @@ const {Schema, model} = require('mongoose')
 const CollaboratorSchema = Schema({
     document:{
         type: Number,
-        require: true,
+        required: true,
     },
-    name:{
+    fName:{
         type: String,
-        require: true,
+        required: true,
     },
-    lastName:{
+    sName:{
         type: String,
-        require: true,
+        default:''
+    },
+    fLastName:{
+        type: String,
+        required: true,
+    },
+    sLastName:{
+        type: String,
+        required: true,
     },
     age:{
         type: Number,
-        require: true,
+        required: true,
     },
     contract:{
         type: String,
-        require: true,
+        required: true,
     },
-    campus:{   // es la sede
+    campus:{   // es la sede o lugar de trabajo 
         type: String,
-        default: 'Bogotá',
+        required:true,
     },
-    date:{
+    birthdate:{
         type: Date,
-        require: true,
+        required: true,
     },
     position:{
         type: String,
-        require: true, 
+        required: true, 
     },
     state:{
         type: String,
-        default: 'Activo',
+        required: true,
     },
     email:{
         type: String,
-        require: true,
+        required: true,
     },
     phone:{
         type: Number,
-        require: true,
+        required: true,
+    },
+    transit:{ 
+        type: String,
+        required: true,
+    },
+    PS:{
+        type: Number,
+        default:''
+    },
+    OYL:{
+        type: Number,
+        default:''
+    },
+    ICBF:{
+        type: Number,
+        required: true,
+    },
+    gen:{
+        type: String,
+        required: true
+    },
+    dateECedula:{
+        type: Date,
+        required: true,
+    },
+    locality:{
+        type: String,
+        required: true,
+    },
+    neighborhood:{
+        type: String,
+        required: true,
+    },
+    adress:{
+        type: String,
+        required: true,
+    },
+    telP:{
+        type: Number,
+        required: true,
+    },
+    telS:{ // no se requiere estrictamente 
+        type: Number,
+        default:''
+    },
+    salaryL:{
+        type: String,
+        required: true,
+    },
+    salaryN:{
+        type: Number,
+        required: true,
+    },
+    dateIICBF:{
+        type: Date,
+        required: true,
+    },
+    dateIFSC:{
+        type: Date,
+        required: true,
+    },
+    newDateI:{ 
+        type: Date,
+        default:''
+    },
+    dateR:{
+        type: Date,
+        default:''
+    },
+    EPS:{
+        type: String,
+        required: true,
+    },
+    FDP:{
+        type: String,
+        default: 'N/A'
+    },
+    ARL:{
+        type: String,
+        default: 'N/A'
+    },
+    obs:{ 
+        type: String,
+        default:''
     },
 },{
     versionKey: false,
