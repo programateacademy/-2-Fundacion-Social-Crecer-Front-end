@@ -1,49 +1,141 @@
-const {Schema, model} = require('mongoose')
+const {Schema, model} = required('mongoose')
 
 const CollaboratorSchema = Schema({
     document:{
         type: Number,
-        require: true,
+        required: true,
     },
-    name:{
+    primerNombre:{
         type: String,
-        require: true,
+        required: true,
     },
-    lastName:{
+    segundoNombre:{
         type: String,
-        require: true,
+        default:''
+    },
+    primerApellido:{
+        type: String,
+        required: true,
+    },
+    segundoApellido:{
+        type: String,
+        required: true,
     },
     age:{
         type: Number,
-        require: true,
+        required: true,
     },
     contract:{
         type: String,
-        require: true,
+        required: true,
     },
-    campus:{   // es la sede
+    campus:{   // es la sede o lugar de trabajo 
         type: String,
-        default: 'Bogotá',
+        required:true,
     },
-    date:{
+    birthdate:{
         type: Date,
-        require: true,
+        required: true,
     },
     position:{
         type: String,
-        require: true, 
+        required: true, 
     },
     state:{
         type: String,
-        default: 'Activo',
+        required: true,
     },
     email:{
         type: String,
-        require: true,
+        required: true,
     },
     phone:{
         type: Number,
-        require: true,
+        required: true,
+    },
+    transit:{ 
+        type: String,
+        required: true,
+    },
+    consecutivoPS:{
+        type: Number,
+        default:''
+    },
+    consecutivoOYL:{
+        type: Number,
+        default:''
+    },
+    contratoICBF:{
+        type: Number,
+        required: true,
+    },
+    genero:{
+        type: String,
+        required: true
+    },
+    FechaExpedicionCedula:{
+        type: Date,
+        required: true,
+    },
+    Localidad:{
+        type: String,
+        required: true,
+    },
+    Barrio:{
+        type: String,
+        required: true,
+    },
+    direccion:{
+        type: String,
+        required: true,
+    },
+    telefonoPrincipal:{
+        type: Number,
+        required: true,
+    },
+    telefonoSecundario:{ // no se requiere estrictamente 
+        type: Number,
+        default:''
+    },
+    SalarioLetras:{
+        type: String,
+        required: true,
+    },
+    SalarioNumeros:{
+        type: Number,
+        required: true,
+    },
+    fechaInicioICBF:{
+        type: Date,
+        required: true,
+    },
+    fechaInicioFSC:{
+        type: Date,
+        required: true,
+    },
+    NuevaFechaDeInicio:{ 
+        type: Date,
+        default:''
+    },
+    fechaRetiro:{
+        type: Date,
+        default:''
+    },
+    EPS:{
+        type: String,
+        required: true,
+    },
+    fondoDePensiones:{
+        type: String,
+        default: 'N/A'
+    },
+    ARL:{
+        type: String,
+        default: 'N/A'
+    },
+    Observaciones:{ 
+        type: String,
+        default:''
     },
 },{
     versionKey: false,
