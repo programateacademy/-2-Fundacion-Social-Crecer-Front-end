@@ -1,5 +1,5 @@
+const { sign } = require("jsonwebtoken");
 const User = require("../models/User");
-const jwt = require("jsonwebtoken");
 
 const getUser = async (req, res) => await User.find()
 
@@ -8,11 +8,6 @@ const getUser = async (req, res) => await User.find()
 const saveUser = async (req, res) => {
 
    const { email, password, role } = req.body;
-   // Validar el formato del correo electrónico
-  const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  if (!emailRegex.test(email)) {
-    return res.status(400).send({ error: 'Email inválido' });
-  }
    // Comprobar si el correo electrónico ya está registrado
    const user = await User.findOne({ email });
    if (user) {
@@ -21,18 +16,13 @@ const saveUser = async (req, res) => {
 
    const newUser = new User({
       email,
-      password: await User.encryptPassword(password),
+      password,
       role
    })
    const savedU = await newUser.save();
-   console.log(newUser);
-  //usamos el metodo para crear el token y le pasamos los parametros que utilizará para crear el token
-  //palabra secreta, se recomienda crear un archivo config donde se exporte un objeto llamado SECRET: 'palabra' y se importa ese archivo y se usa config.SECRET en vez de lo que esta entre comillas simples
-   const token = jwt.sign({id: savedU._id}, 'user.api', {
-      expiresIn: 86400 //24h
-   })
+   return res.status(200).json({savedU});
 
-   res.status(200).json({token})
+
 }
 
 const updateUser = async (req, res) => await User.findByIdAndUpdate(id)
@@ -41,6 +31,25 @@ const deleteUser = async (req, res) => await User.deleteById(req.params.id)
 
 
 const logInUser = async (req, res) => {
+   try {
+      const { body: { email, password } } = req
+      userLogIn = await User.findOne({ $and: [{email},{password}] })
+      if(userLogIn.length == 0){
+         return res.status(400).json({
+            msg: "Correo o contraseña imcorrectos"
+         })
+      }
+      const token = sign({
+         email: userLogIn.email,
+         role: userLogIn.role
+      }, process.env.JWT_SECRET)
+
+      return res.status(200).json({token})
+   } catch (error) {
+      return res.status(404).json({
+         error: error.message
+      })
+   }
 
 }
 
