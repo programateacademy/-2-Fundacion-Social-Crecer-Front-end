@@ -36,7 +36,7 @@ const logInUser = async (req, res) => {
       userLogIn = await User.findOne({ $and: [{email},{password}] })
       if(userLogIn.length == 0){
          return res.status(400).json({
-            msg: "Correo o contraseña imcorrectos"
+            msg: "Correo o contraseña incorrectos"
          })
       }
       const token = sign({

@@ -1,23 +1,23 @@
-const {Schema, model} = required('mongoose')
+const {Schema, model} = require('mongoose')
 
 const CollaboratorSchema = Schema({
     document:{
         type: Number,
         required: true,
     },
-    primerNombre:{
+    fName:{
         type: String,
         required: true,
     },
-    segundoNombre:{
+    sName:{
         type: String,
         default:''
     },
-    primerApellido:{
+    fLastName:{
         type: String,
         required: true,
     },
-    segundoApellido:{
+    sLastName:{
         type: String,
         required: true,
     },
@@ -53,67 +53,67 @@ const CollaboratorSchema = Schema({
         type: String,
         required: true,
     },
-    consecutivoPS:{
+    PS:{
         type: Number,
         default:''
     },
-    consecutivoOYL:{
+    OYL:{
         type: Number,
         default:''
     },
-    contratoICBF:{
+    ICBF:{
         type: Number,
         required: true,
     },
-    genero:{
+    gen:{
         type: String,
         required: true
     },
-    FechaExpedicionCedula:{
+    dateECedula:{
         type: Date,
         required: true,
     },
-    Localidad:{
+    locality:{
         type: String,
         required: true,
     },
-    Barrio:{
+    neighborhood:{
         type: String,
         required: true,
     },
-    direccion:{
+    adress:{
         type: String,
         required: true,
     },
-    telefonoPrincipal:{
+    telP:{
         type: Number,
         required: true,
     },
-    telefonoSecundario:{ // no se requiere estrictamente 
+    telS:{ // no se requiere estrictamente 
         type: Number,
         default:''
     },
-    SalarioLetras:{
+    salaryL:{
         type: String,
         required: true,
     },
-    SalarioNumeros:{
+    salaryN:{
         type: Number,
         required: true,
     },
-    fechaInicioICBF:{
+    dateIICBF:{
         type: Date,
         required: true,
     },
-    fechaInicioFSC:{
+    dateIFSC:{
         type: Date,
         required: true,
     },
-    NuevaFechaDeInicio:{ 
+    newDateI:{ 
         type: Date,
         default:''
     },
-    fechaRetiro:{
+    dateR:{
         type: Date,
         default:''
     },
@@ -121,7 +121,7 @@ const CollaboratorSchema = Schema({
         type: String,
         required: true,
     },
-    fondoDePensiones:{
+    FDP:{
         type: String,
         default: 'N/A'
     },
@@ -129,7 +129,7 @@ const CollaboratorSchema = Schema({
         type: String,
         default: 'N/A'
     },
-    Observaciones:{ 
+    obs:{ 
         type: String,
         default:''
     },

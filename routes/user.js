@@ -1,5 +1,5 @@
-const {Router} = require('express')
-const { saveUser, getUser,logInUser } = require('../controller/user')
+const { Router } = require('express')
+const { saveUser, logInUser, getUser } = require('../controller/user')
 
 const routerUser = Router()
 
