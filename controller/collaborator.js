@@ -3,7 +3,7 @@ const Collaborator = require("../models/Collaborator");
 const getCollaborator = async (req, res) => {
     try {
         const collaborator = await Collaborator.find({})
-        return res.send(collaborator)
+        return res.status(200).send(collaborator)
     } catch (error) {
         return res.status(400).send(error)
     }
@@ -12,7 +12,8 @@ const getCollaborator = async (req, res) => {
 const saveCollaborator = async (req, res) => {
     try {
         const collaborator = new Collaborator(req.body)
-        return await collaborator.save()
+        const saved = await collaborator.save()
+        return res.status(201).send(saved)
     } catch (error) {
         return res.status(400).json({
             msg: `Error: ${error.message}`
@@ -24,7 +25,7 @@ const saveCollaborator = async (req, res) => {
 const deleteCollaborator = async (req, res) => {
     try {
         const collaborator = await Collaborator.findByIdAndDelete(req.params.id)
-        return res.send(collaborator)
+        return res.status(200).send(collaborator)
     } catch (error) {
         return res.status(400).send(error)
     }
@@ -33,9 +34,9 @@ const deleteCollaborator = async (req, res) => {
 const updateCollaborator = async (req, res) => {
     try {
         const collaborator = await Collaborator.findByIdAndUpdate(req.params.id, req.body,{new:true})
-        return res.send(collaborator)
+        return res.status(200).send(collaborator)
     } catch (error) {
-        return res.status(500).send(error)
+        return res.status(400).send(error)
     }
 }
 
