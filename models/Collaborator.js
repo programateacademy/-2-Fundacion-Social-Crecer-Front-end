@@ -49,10 +49,6 @@ const CollaboratorSchema = Schema({
         type: String,
         required: true,
     },
-    phone:{
-        type: Number,
-        required: true,
-    },
     transit:{ 
         type: String,
         required: true,
