@@ -7,11 +7,14 @@ const cors = require('cors')
 const routerUser = require("./routes/user")
 const conn = require("./db/connection")
 const routerCollaborator = require("./routes/collaborator")
+const rawBody = require('raw-body')
+const bodyParser = require('body-parser')
 
 conn()
 
 app.use(cors())
 
+app.use(bodyParser.json({ limit: '5mb' }))
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use('/api',routerUser )

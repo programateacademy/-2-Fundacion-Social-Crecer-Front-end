@@ -2,12 +2,12 @@ const {Schema, model} = require('mongoose')
 
 const CollaboratorSchema = Schema({
     document:{
-        type: Number,
-        required: true,
+        type: String,
+        
     },
     fName:{
         type: String,
-        required: true,
+        
     },
     sName:{
         type: String,
@@ -15,79 +15,73 @@ const CollaboratorSchema = Schema({
     },
     fLastName:{
         type: String,
-        required: true,
+        
     },
     sLastName:{
         type: String,
-        required: true,
+        default:''
     },
-    age:{
-        type: Number,
-        required: true,
-    },
+    age:Number,
     contract:{
         type: String,
-        required: true,
+        
+    },
+    modality:{
+        type: String,
+        
     },
     campus:{   // es la sede o lugar de trabajo 
         type: String,
-        required:true,
     },
     birthdate:{
-        type: Date,
-        required: true,
+        type: String,
+        
     },
     position:{
         type: String,
-        required: true, 
+
     },
     state:{
         type: String,
-        required: true,
+        
     },
     email:{
         type: String,
-        required: true,
+        
     },
     transit:{ 
         type: String,
-        required: true,
+        
     },
-    PS:{
-        type: Number,
-        default:''
-    },
-    OYL:{
-        type: Number,
-        default:''
-    },
+    PS:Number,
+    OYL:Number,
     ICBF:{
-        type: Number,
-        required: true,
+        type: String,
+        
     },
     gen:{
         type: String,
-        required: true
+
     },
     dateECedula:{
-        type: Date,
-        required: true,
+        type: String,
+        
     },
     locality:{
         type: String,
-        required: true,
+        
     },
     neighborhood:{
         type: String,
-        required: true,
+        
     },
     adress:{
         type: String,
-        required: true,
+        
     },
     telP:{
         type: Number,
-        required: true,
+        
     },
     telS:{ // no se requiere estrictamente 
         type: Number,
@@ -95,31 +89,31 @@ const CollaboratorSchema = Schema({
     },
     salaryL:{
         type: String,
-        required: true,
+        
     },
     salaryN:{
-        type: Number,
-        required: true,
+        type: String,
+        
     },
     dateIICBF:{
-        type: Date,
-        required: true,
+        type: String,
+        
     },
     dateIFSC:{
-        type: Date,
-        required: true,
+        type: String,
+        
     },
     newDateI:{ 
-        type: Date,
+        type: String,
         default:''
     },
     dateR:{
-        type: Date,
+        type: String,
         default:''
     },
     EPS:{
         type: String,
-        required: true,
+        
     },
     FDP:{
         type: String,

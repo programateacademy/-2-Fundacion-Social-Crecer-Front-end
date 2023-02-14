@@ -10,9 +10,11 @@ const getCollaborator = async (req, res) => {
 } 
 
 const saveCollaborator = async (req, res) => {
+    console.log(req.body)
     try {
-        const collaborator = new Collaborator(req.body)
-        const saved = await collaborator.save()
+        // const collaborator = new Collaborator(req.body)
+        // const saved = await collaborator.save()
+        const saved = await Collaborator.insertMany(req.body)
         return res.status(201).send(saved)
     } catch (error) {
         return res.status(400).json({
