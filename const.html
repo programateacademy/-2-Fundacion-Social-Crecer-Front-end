@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hello world!</title>
+    <!-- <link rel="stylesheet" href="const.css"> -->
+    <style>
+      h1{
+        text-align: center;
+      }
+      p{
+        font-size: 24px;
+        text-align: justify;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+        <img src="" alt="">
+    </header>
+    <h1>LA  DIRECTORA DE LA FUNDACIÓN SOCIAL CRECER</h1>
+    <h1>HACE CONSTAR</h1>
+    {{#each users}}
+    <p>
+      Que el(la) señor(a) {{this.name}} identificado(a) con cedula de ciudadanía N° {{this.cc}}, se encuentra vinculado(a) 
+      con la FUNDACIÓN SOCIAL CRECER, en desarrollo de un convenio suscrito con el I.C.B.F., en la Modalidad {{this.modality}}, 
+      mediante un contrato de {{this.contract}} en el cargo de {{this.cargo}} desde el {{this.time}}
+      devengando un salario mensual de {{this.sletras}} ({{this.snumeros}}).<br>
+      La Fundación Social Crecer se encuentra ubicada en la carrera 16 No. 16 – 48, barrió La Favorita, localidad de los Mártires.<br>
+      Esta certificación se expide a solicitud de la interesada(o) en Bogotá D.C., a los 16 de febrero de 2023.<br>
+
+      Para confirmar esta certificación puedes comunicarse al teléfono: 3187942707 – Coordinación de Talento Humano.
+
+
+    </p>
+{{/each}}
+
+    
+    <!-- <h1>User List</h1>
+    <ul>
+      {{#each users}}
+      <li>Name: {{this.name}}</li>
+      <li>Age: {{this.age}}</li>
+      <br />
+      {{/each}}
+    </ul> -->
+  </body>
+</html>
