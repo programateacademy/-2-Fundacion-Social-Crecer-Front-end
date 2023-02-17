@@ -2,7 +2,7 @@ const fs = require('fs')
 const pdf = require('pdf-creator-node')
 const path = require('path')
 
-const getPdf = (req, res) =>{
+const getPdf = (req, res) => {
     try {
         const file = fs.readFileSync(path.resolve(__dirname, "../certificado.pdf"))
         res.contentType("application/pdf")
@@ -19,9 +19,19 @@ const downloadPdf = (req, res) => {
     res.sendFile(filePath)
 }
 
-const generatePdf = (req,res)=>{
+const generatePdf = (req, res) => {
+    const {
+        name,
+        cc,
+        modality,
+        contract,
+        cargo,
+        time,
+        sletras,
+        snumeros
+    } = req.body
 
-    const html = fs.readFileSync('const.html','utf-8')
+    const html = fs.readFileSync('const.html', 'utf-8')
 
     var options = {
         format: "A3",
@@ -43,16 +53,26 @@ const generatePdf = (req,res)=>{
     };
 
     var users = [
-        {
+        /* {
             name: 'Derick Mauricio Saa Ortega',
             cc: "1.010.241.012",
-            modality:'desarrollo infantil medio familiar',
-            contract:'prestación de servicios',
-            cargo:'promotor de derechos - profesional',
-            time:'11/01/2022 hasta 11/01/2023 ',
-            sletras:'tres millones de pesos',
-            snumeros:'$3.000.000'
-        },
+            modality: 'desarrollo infantil medio familiar',
+            contract: 'prestación de servicios',
+            cargo: 'promotor de derechos - profesional',
+            time: '11/01/2022 hasta 11/01/2023 ',
+            sletras: 'tres millones de pesos',
+            snumeros: '$3.000.000'
+        } */
+        {
+            name,
+            cc,
+            modality,
+            contract,
+            cargo,
+            time,
+            sletras,
+            snumeros
+        } ,
         // {
         //     name: "maria",
         //     age: "26",
@@ -62,7 +82,7 @@ const generatePdf = (req,res)=>{
     var document = {
         html: html,
         data: {
-        users: users,
+            users: users,
         },
         path: "./certificado.pdf",
         type: "",
@@ -71,15 +91,15 @@ const generatePdf = (req,res)=>{
 
 
     pdf.create(document, options)
-    .then((data) => {
-        console.log(data);
-        res.status(200).json({msg:'pdf creado'})
-        // const file = fs.readFileSync(data.filename)
-    })
-    .catch((error) => {
-        console.error(error);
-        res.status(400).json(error)
-    });
+        .then((data) => {
+            //console.log(data);
+            res.status(200).json({ msg: 'pdf creado' })
+            // const file = fs.readFileSync(data.filename)
+        })
+        .catch((error) => {
+            console.error(error);
+            res.status(400).json(error)
+        });
 }
 
 module.exports = {
