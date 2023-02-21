@@ -2,47 +2,90 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Hello world!</title>
+    <title>Certificado laboral</title>
     <!-- <link rel="stylesheet" href="const.css"> -->
+    {{#each users}}
     <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
       h1{
         text-align: center;
+        font-size: 24px;
+        padding-bottom: 5mm;
       }
       p{
         font-size: 24px;
         text-align: justify;
       }
+      body{
+        padding: 10mm 40mm;
+        font-family: 'Roboto', sans-serif;
+        
+      }
+      .contain{
+        background-image: url("data:image/jpg;base64,{{mark}}");
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+      header{
+        padding-left: 680px;
+      }
+      .pro{
+        font-size: 12px;
+        color: #ababab;
+      }
+      footer p{
+        font-size: 20px;
+        text-align: center;
+      }
+      .contain img{
+        position: relative;
+        top: 70px;
+        padding-top: 150px;
+      }
+      hr{
+        border-color: #70ad47;
+      }
+      footer{
+        position: relative;
+        top: 180px;
+      }
     </style>
   </head>
   <body>
-    <header>
-        <img src="" alt="">
-    </header>
-    <h1>LA  DIRECTORA DE LA FUNDACIÓN SOCIAL CRECER</h1>
-    <h1>HACE CONSTAR</h1>
-    {{#each users}}
-    <p>
-      Que el(la) señor(a) {{this.name}} identificado(a) con cedula de ciudadanía N° {{this.cc}}, se encuentra vinculado(a) 
-      con la FUNDACIÓN SOCIAL CRECER, en desarrollo de un convenio suscrito con el I.C.B.F., en la Modalidad {{this.modality}}, 
-      mediante un contrato de {{this.contract}} en el cargo de {{this.cargo}} desde el {{this.time}}
-      devengando un salario mensual de {{this.sletras}} ({{this.snumeros}}).<br>
-      La Fundación Social Crecer se encuentra ubicada en la carrera 16 No. 16 – 48, barrió La Favorita, localidad de los Mártires.<br>
-      Esta certificación se expide a solicitud de la interesada(o) en Bogotá D.C., a los 16 de febrero de 2023.<br>
-
-      Para confirmar esta certificación puedes comunicarse al teléfono: 3187942707 – Coordinación de Talento Humano.
-
-
-    </p>
-{{/each}}
-
     
-    <!-- <h1>User List</h1>
-    <ul>
-      {{#each users}}
-      <li>Name: {{this.name}}</li>
-      <li>Age: {{this.age}}</li>
-      <br />
-      {{/each}}
-    </ul> -->
+    <header>
+    <img src="data:image/png;base64,{{logo}}" alt="logo">
+    </header>
+
+    <div class="contain">
+      <h1>LA SUSCRITA DIRECTORA <br> DE LA FUNDACIÓN SOCIAL CRECER</h1>
+      <h1>HACE CONSTAR</h1>
+
+      <p>
+        Que el(la) señor(a) {{this.name}} identificado(a) con cedula de ciudadanía N° {{this.cc}}, se {{this.asset}} vinculado(a)
+        con la FUNDACIÓN SOCIAL CRECER, en desarrollo de un convenio suscrito con el I.C.B.F., en la Modalidad {{this.modality}},
+        mediante un contrato de {{this.contract}} en el cargo de {{this.cargo}} desde el {{this.timeI}} {{this.timeF}}
+        devengando {{this.honsal}} mensual de {{this.sletras}} ({{this.snumeros}}).  </p>
+        <p>La Fundación Social Crecer se encuentra ubicada en la carrera 16 No. 16 – 48, barrió La Favorita, localidad de los Mártires.</p>
+        <p>Esta certificación se expide a solicitud de la interesada(o) en Bogotá D.C., el {{this.day}} de {{this.month}} del año {{this.year}}.</p>
+        <p>Para confirmar esta certificación puedes comunicarse al teléfono: 3187942707 – Coordinación de Talento Humano.</p>
+
+        <img src="data:image/png;base64,{{firma}}" alt="firma">
+        <h2>__________________________________<br>
+        ESPERANZA ARÉVALO BORRERO<br>
+        Directora General</h2>
+
+        <p class="pro">Proyectó: Oscar Morales <br> {{this.date}}</p>
+    </div>
+
+    <footer>
+      <hr>
+      <p>Carrera 16 No. 16-48 Bogotá D.C. <br>
+        Tels : 2497644 - 2847984 e-mail funcrecer@gmail.com <br>
+        WWW.FUNCRECER.COM
+      </p>
+    </footer>
+
   </body>
+  {{/each}}
 </html>
