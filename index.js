@@ -10,6 +10,7 @@ const routerCollaborator = require("./routes/collaborator")
 const rawBody = require('raw-body')
 const bodyParser = require('body-parser')
 const routerUpload = require("./routes/cert")
+const routerEmail = require("./routes/email")
 
 conn()
 
@@ -21,6 +22,7 @@ app.use(express.urlencoded({extended:true}))
 app.use('/api',routerUser )
 app.use('/api',routerCollaborator )
 app.use('/api',routerUpload )
+app.use('/api',routerEmail)
 
 app.listen(port, _ => {
     console.log(`Server running in port ${port}`)
