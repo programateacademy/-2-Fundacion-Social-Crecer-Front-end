@@ -25,7 +25,23 @@ const saveUser = async (req, res) => {
 
 }
 
-const updateUser = async (req, res) => await User.findByIdAndUpdate(id)
+const updateUser = async (req, res) => {await User.findByIdAndUpdate({
+   // id:req.body.id
+
+},
+{
+   $set:
+      {
+         password
+      }
+},
+{
+   new: true
+}
+)
+}
+
+
 
 const deleteUser = async (req, res) => await User.deleteById(req.params.id)
 
