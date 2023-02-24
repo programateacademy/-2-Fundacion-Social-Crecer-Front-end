@@ -3,6 +3,6 @@ const { postEmail } = require("../controller/email");
 
 const routerEmail = Router()
 
-routerEmail.post('/send', postEmail)
+routerEmail.get('/send', postEmail)
 
 module.exports = routerEmail

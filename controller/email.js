@@ -19,7 +19,7 @@ const postEmail = (req, res) => {
 
     let mailOptions = {
         from: 'dericksaa@gmail.com',
-        to: email,
+        to: 'dmsaao@unal.edu.co',
         subject: 'ya solo falta el de verdad',
         text: 'enviando correo con pdf',
         attachments:[
