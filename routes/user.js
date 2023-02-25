@@ -6,7 +6,7 @@ const routerUser = Router()
 
 routerUser.get('/user', getUser) // habia un api
 
-routerUser.get('/change', senLinkPassword)
+routerUser.post('/change', senLinkPassword)
 
 routerUser.post('/user', 
 // [

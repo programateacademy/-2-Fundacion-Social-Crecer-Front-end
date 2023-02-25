@@ -24,11 +24,13 @@ const saveUser = async (req, res) => {
    const newUser = new User({
       email,
       password,
-      role,
-   });
+      role
+   })
    const savedU = await newUser.save();
    return res.status(200).json({ savedU });
-};
+
+
+}
 
 const updateUser = async (req, res) => {
    const { password } = req.body;
@@ -47,34 +49,102 @@ const updateUser = async (req, res) => {
    );
 };
 
-const deleteUser = async (req, res) => await User.deleteById(req.params.id);
+// const token = req.query.token
+
+// jwt.verify(token,'12345', (error, decoded)=>{
+//   try {
+//     const id = decoded.id
+//   } catch (error) {
+//     console.log(error);
+//   }
+// })
+
+const deleteUser = async (req, res) => await User.deleteById(req.params.id)
+
+const senLinkPassword = (req, res) => {
+   const { id } = req.body
+
+   function generartoken(id) {
+      const expira = Math.floor(Date.now() / 1000) + (60 * 60 * 24)
+      const token = sign({ id, exp: expira }, '12345')
+      return token
+   }
+
+   const token = generartoken(id)
+   const enlace = `http://localhost:3000/reset/${token}`
+
+   const contenidoCorreo = `
+      <p>Hola,</p>
+      <p>Dando click en el siguiente enlace podras reestablecer tu contraseña</p>
+      <p><a href=${enlace}>Enlace de reestablecer contraseña</a></p>
+   `;
+
+
+   const transporter = nodemailer.createTransport({
+      host: 'smtp.ethereal.email',
+      port: 587,
+      auth: {
+         user: 'river90@ethereal.email',
+         pass: 'zgh1qay8qG6SUME6br'
+      }
+   });
+
+
+   let mailOptions = {
+      from: 'dericksaa@gmail.com',
+      to: 'dmsaao@unal.edu.co',
+      subject: 'ya solo falta el de verdad',
+      html: contenidoCorreo,
+      attachments: [
+         {
+            filename: 'enlace.txt',
+            content: enlace,
+         }
+      ]
+   };
+
+   transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+         console.log(error);
+      } else {
+         console.log('Correo enviado: ' + info.response);
+         console.log('URL de la vista previa: ' + nodemailer.getTestMessageUrl(info));
+      }
+   });
+
+
+
+   try {
+      res.status(200).json({ msg: 'correo contra enviado con exito' })
+   } catch (error) {
+      res.status(400).json(error)
+   }
+
+}
+
 
 const logInUser = async (req, res) => {
    try {
-      const {
-         body: { email, password },
-      } = req;
-      userLogIn = await User.findOne({ $and: [{ email }, { password }] });
+      const { body: { email, password } } = req
+      userLogIn = await User.findOne({ $and: [{ email }, { password }] })
       if (userLogIn.length == 0) {
          return res.status(400).json({
-            msg: "Correo o contraseña incorrectos",
-         });
+            msg: "Correo o contraseña incorrectos"
+         })
       }
-      const token = sign(
-         {
-            email: userLogIn.email,
-            role: userLogIn.role,
-         },
-         process.env.JWT_SECRET
-      );
+      const token = sign({
+         email: userLogIn.email,
+         role: userLogIn.role
+      }, process.env.JWT_SECRET)
 
-      return res.status(200).json({ token });
+      return res.status(200).json({ token })
    } catch (error) {
       return res.status(404).json({
-         error: error.message,
-      });
+         error: error.message
+      })
    }
-};
+
+}
 
 module.exports = {
    getUser,
@@ -82,4 +152,5 @@ module.exports = {
    updateUser,
    deleteUser,
    logInUser,
-};
+   senLinkPassword
+}
