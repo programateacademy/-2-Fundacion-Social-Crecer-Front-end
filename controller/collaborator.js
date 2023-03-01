@@ -9,6 +9,15 @@ const getCollaborator = async (req, res) => {
     }
 } 
 
+    const getEditCollab = async (req, res) => {
+        try {
+            const collaborator = await Collaborator.findById(req.params.id)
+            return res.status(200).send(collaborator)
+        } catch (error) {
+            return res.status(400).send(error)
+        }
+    }
+
 const saveCollaborator = async (req, res) => {
     console.log(req.body)
     try {
@@ -47,4 +56,5 @@ module.exports = {
     saveCollaborator,
     deleteCollaborator,
     updateCollaborator,
+    getEditCollab
 }

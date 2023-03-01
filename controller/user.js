@@ -1,6 +1,7 @@
 const { sign } = require("jsonwebtoken");
 const User = require("../models/User");
 const nodemailer = require('nodemailer')
+const jwt = require('jsonwebtoken')
 
 const getUser = async (req, res) => {
    try {
@@ -33,31 +34,18 @@ const saveUser = async (req, res) => {
 }
 
 const updateUser = async (req, res) => {
-   const { password } = req.body;
-   await User.findByIdAndUpdate(
-      {
-         // id:req.body.id
-      },
-      {
-         $set: {
-            password,
-         },
-      },
-      {
-         new: true,
-      }
-   );
+   const { data, token } = req.body;
+   console.log(token)
+   const password = data.password
+   const payload = jwt.verify(token, '12345')
+   const iduser = payload.id
+
+
+   await User.findByIdAndUpdate(iduser, {
+      password
+   })
 };
 
-// const token = req.query.token
-
-// jwt.verify(token,'12345', (error, decoded)=>{
-//   try {
-//     const id = decoded.id
-//   } catch (error) {
-//     console.log(error);
-//   }
-// })
 
 const deleteUser = async (req, res) => await User.deleteById(req.params.id)
 
@@ -66,7 +54,7 @@ const senLinkPassword = (req, res) => {
 
    function generartoken(id) {
       const expira = Math.floor(Date.now() / 1000) + (60 * 60 * 24)
-      const token = sign({ id, exp: expira }, '12345')
+      const token = sign({id}, '12345', {expiresIn:'1d'})
       return token
    }
 
