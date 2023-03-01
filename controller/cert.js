@@ -43,6 +43,8 @@ const generatePdf = (req, res) => {
         fechaFinal
     } = req.body
 
+    const ccn = +cc
+    const snn = +snumeros
 
     // const fechaFinal  = ''
     const aoi = fechaFinal == ''?'':`hasta ${fechaFinal}`;
@@ -114,13 +116,13 @@ const generatePdf = (req, res) => {
         // },
         {
             name,
-            cc,
+            cc:ccn.toLocaleString('es-ES'),
             modality,
             contract,
             cargo,
             timeI,
             sletras,
-            snumeros,
+            snumeros:snn.toLocaleString('es-ES'),
             timeF: aoi,
             asset:enc(),
             honsal:h_or_s(),
