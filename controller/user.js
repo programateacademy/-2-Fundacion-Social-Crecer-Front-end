@@ -1,6 +1,7 @@
 const { sign } = require("jsonwebtoken");
 const User = require("../models/User");
-const nodemailer = require('nodemailer')
+const nodemailer = require('nodemailer');
+const { hash, compare, compareSync } = require("bcrypt");
 
 const getUser = async (req, res) => {
    try {
@@ -15,19 +16,24 @@ const getUser = async (req, res) => {
 
 const saveUser = async (req, res) => {
    const { email, password, role } = req.body;
-   // Comprobar si el correo electrónico ya está registrado
-   const user = await User.findOne({ email });
-   if (user) {
-      return res.status(400).send({ error: "Email ya está registrado" });
+   try {
+      // Comprobar si el correo electrónico ya está registrado
+      const user = await User.findOne({ email });
+      if (user) {
+         return res.status(400).send({ error: "Email ya está registrado" });
+      }
+      // Encriptar la contraseña
+      const pass = await hash(password, 10)
+      const newUser = new User({
+         email,
+         password: pass,
+         role
+      })
+      const savedU = await newUser.save();
+      return res.status(200).json({ savedU });
+   } catch (error) {
+      return res.status(400).send({ error: "Error: " + error });
    }
-
-   const newUser = new User({
-      email,
-      password,
-      role
-   })
-   const savedU = await newUser.save();
-   return res.status(200).json({ savedU });
 
 
 }
@@ -125,13 +131,15 @@ const senLinkPassword = (req, res) => {
 
 const logInUser = async (req, res) => {
    try {
-      const { body: { email, password } } = req
-      userLogIn = await User.findOne({ $and: [{ email }, { password }] })
-      if (userLogIn.length == 0) {
-         return res.status(400).json({
-            msg: "Correo o contraseña incorrectos"
+      const { email, password } = req.body
+      const userLogIn = await User.findOne({ email })
+      const pass = await compareSync(password, userLogIn.password)
+      if(!pass || userLogIn.length == 0){
+         return res.status(404).json({
+            error: "Correo o contraseña incorrectos"
          })
       }
+      
       const token = sign({
          email: userLogIn.email,
          role: userLogIn.role
