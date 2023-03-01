@@ -1,5 +1,5 @@
 const { Router } = require('express')
-const { saveUser, logInUser, getUser, senLinkPassword, updateUser } = require('../controller/user')
+const { saveUser, logInUser, getUser, senLinkPassword, updateUser, deleteUser } = require('../controller/user')
 const { body, validationResult } = require('express-validator');
 
 const routerUser = Router()
@@ -56,7 +56,7 @@ routerUser.post('/login',
 
 )
 
-
+routerUser.delete("/user/:id", deleteUser)
 
 
 module.exports = routerUser

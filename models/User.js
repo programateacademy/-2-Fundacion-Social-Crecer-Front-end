@@ -13,7 +13,7 @@ const UserSchema = new Schema({
       },
       role: {
          type: String,
-         default: 'USER',
+         default: 'user',
       }
    },
    {

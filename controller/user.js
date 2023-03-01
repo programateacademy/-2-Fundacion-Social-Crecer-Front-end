@@ -41,26 +41,46 @@ const saveUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
    const { data, token } = req.body;
-   console.log(token)
-   const password = data.password
-   const payload = jwt.verify(token, '12345')
-   const iduser = payload.id
+   try {
+      const password = await hash(data.password, 10)
+      const payload = jwt.verify(token, process.env.JWT_SECRET)
+      const iduser = payload.id
 
+      await User.findByIdAndUpdate(iduser, {
+         password
+      })
+      return res.status(200).json({
+         msg: "user updated"
+      })
+   } catch (error) {
+      res.status(400).json({
+         error: error.message
+      })
+   }
 
-   await User.findByIdAndUpdate(iduser, {
-      password
-   })
 };
 
 
-const deleteUser = async (req, res) => await User.deleteById(req.params.id)
+const deleteUser = async (req, res) => {
+   try {
+      await User.findByIdAndDelete(req.params.id)
+      res.status(200).json({
+         msg: "user deleted"
+      })
+   } catch (error) {
+      res.status(400).json({
+         error: error.message
+      })
+   }
+   
+}
 
 const senLinkPassword = (req, res) => {
    const { id } = req.body
 
    function generartoken(id) {
-      const expira = Math.floor(Date.now() / 1000) + (60 * 60 * 24)
-      const token = sign({id}, '12345', {expiresIn:'1d'})
+      //const expira = Math.floor(Date.now() / 1000) + (60 * 60 * 24)
+      const token = sign({ id }, process.env.JWT_SECRET, { expiresIn: '1d' })
       return token
    }
 
@@ -122,12 +142,12 @@ const logInUser = async (req, res) => {
       const { email, password } = req.body
       const userLogIn = await User.findOne({ email })
       const pass = await compareSync(password, userLogIn.password)
-      if(!pass || userLogIn.length == 0){
+      if (!pass || userLogIn.length == 0) {
          return res.status(404).json({
             error: "Correo o contraseña incorrectos"
          })
       }
-      
+
       const token = sign({
          email: userLogIn.email,
          role: userLogIn.role
