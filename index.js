@@ -1,18 +1,16 @@
 const express = require("express")
 const dotEnv = require('dotenv')
 const app = express()
-const port = 5000
+const port = process.env.PORT || 5000
 dotEnv.config()
 const cors = require('cors')
 const routerUser = require("./routes/user")
 const conn = require("./db/connection")
 const routerCollaborator = require("./routes/collaborator")
-const rawBody = require('raw-body')
 const bodyParser = require('body-parser')
 const routerUpload = require("./routes/cert")
 const routerEmail = require("./routes/email")
 
-const { body, validationResult } = require("express-validator");
 
 conn()
 
