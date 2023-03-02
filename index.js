@@ -12,6 +12,8 @@ const bodyParser = require('body-parser')
 const routerUpload = require("./routes/cert")
 const routerEmail = require("./routes/email")
 
+const { body, validationResult } = require("express-validator");
+
 conn()
 
 app.use(cors())

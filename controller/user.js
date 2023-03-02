@@ -1,5 +1,7 @@
 const { sign } = require("jsonwebtoken");
 const User = require("../models/User");
+const { body, validationResult } = require('express-validator');
+
 
 const getUser = async (req, res) => await User.find();
 
@@ -29,7 +31,7 @@ const updateUser = async (req, res) => {
     {
       $set: {
         password,
-      },
+      }, 
     },
     {
       new: true,
@@ -41,15 +43,25 @@ const deleteUser = async (req, res) => await User.deleteById(req.params.id);
 
 const logInUser = async (req, res) => {
   try {
+   (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty())
+      console.log(errors.array());
+      return res.json({ errors: errors.array() })
+    };
+        
     const {
       body: { email, password },
     } = req;
+    
     userLogIn = await User.findOne({ $and: [{ email }, { password }] });
+    
     if (userLogIn.length == 0) {
       return res.status(400).json({
         msg: "Correo o contraseña incorrectos",
       });
     }
+
     const token = sign(
       {
         email: userLogIn.email,
@@ -60,7 +72,7 @@ const logInUser = async (req, res) => {
 
     return res.status(200).json({ token });
   } catch (error) {
-    return res.status(404).json({
+    return res.status(400).json({
       error: error.message,
     });
   }
