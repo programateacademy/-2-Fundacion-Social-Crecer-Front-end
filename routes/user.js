@@ -1,14 +1,16 @@
 const { Router } = require('express')
-const { saveUser, logInUser, getUser, senLinkPassword, updateUser, deleteUser } = require('../controller/user')
+const { saveUser, logInUser, getUser, senLinkPassword, updateUser, deleteUser, updateStrikes } = require('../controller/user')
 const { body, validationResult } = require('express-validator');
 
-const routerUser = Router()
+const routerUser = Router();
 
 routerUser.get('/user', getUser) // habia un api
 
 routerUser.post('/change', senLinkPassword)
 
 routerUser.post('/verify', updateUser)
+
+routerUser.put('/strikes',  updateStrikes)
 
 routerUser.post('/user', 
 // [
@@ -29,6 +31,27 @@ routerUser.post('/user',
 //         return res.json({ errors: errors.array() })
 //     }
 
+  // [
+  //     body('email')
+  //         .trim()
+  //         .isEmail()
+  //         .withMessage('Por favor introduzca un email valido')
+  //         .normalizeEmail()
+  //         .toLowerCase(),
+  //     body('password')
+  //         .trim()
+  //         .isLength(8)
+  //         .withMessage('La contraseña requiere min 8 caracteres')
+  //     body('password2')
+  //         .triam()
+  //         .isLength(8)
+  //         .withMessage('La contraseña requiere min 8 caracteres')
+  //     (req, res) => {
+  //         let errors = validationResult(req);
+  //         if (!errors.isEmpty())
+  //             console.log(errors.array());
+  //         return res.json({ errors: errors.array() })
+  //     }
 
 // ],
     saveUser)

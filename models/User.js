@@ -14,7 +14,14 @@ const UserSchema = new Schema({
       role: {
          type: String,
          default: 'user',
+      },
+
+      strikes: {
+         type:Number,
+         default: 0,
       }
+
+
    },
    {
       versionKey: false,
