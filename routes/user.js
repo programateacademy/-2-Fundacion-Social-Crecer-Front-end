@@ -1,5 +1,5 @@
 const { Router } = require('express')
-const { saveUser, logInUser, getUser, senLinkPassword, updateUser, deleteUser, updateStrikes } = require('../controller/user')
+const { saveUser, logInUser, getUser, senLinkPassword, updateUser, deleteUser, updateStrikes, recoveryAdmin } = require('../controller/user')
 const { body, validationResult } = require('express-validator');
 
 const routerUser = Router();
@@ -7,6 +7,8 @@ const routerUser = Router();
 routerUser.get('/user', getUser) // habia un api
 
 routerUser.post('/change', senLinkPassword)
+
+routerUser.post('/recovadmin', recoveryAdmin)
 
 routerUser.post('/verify', updateUser)
 

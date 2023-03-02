@@ -45,12 +45,12 @@ const updateStrikes = async (req, res) => {
 
     await User.findByIdAndUpdate(person._id, {
       $set: {
-         strikes: person.strikes+1
-       }
+        strikes: person.strikes + 1
+      }
     });
-    return res.status(200).json({msg: "strikes Update"})
+    return res.status(200).json({ msg: "strikes Update" })
   } catch (error) {
-   return res.status(400).json({
+    return res.status(400).json({
       error: error.message,
     });
   }
@@ -66,17 +66,38 @@ const updateUser = async (req, res) => {
     await User.findByIdAndUpdate(iduser, {
       $set: {
         password,
+        strikes: 0
       },
     });
     return res.status(200).json({
       msg: "user updated",
     });
   } catch (error) {
-   return res.status(400).json({
+    return res.status(400).json({
       error: error.message,
     });
   }
 };
+
+const recoveryAdmin = async (req, res) => {
+
+  const { email } = req.body
+
+  try {
+    const admin = await User.findOne({ email })
+    req.body.id = admin._id
+    if (admin.role !== 'admin') {
+      return res.status(401).json({
+        error: 'El rol no es administrador',
+      });
+    }
+    senLinkPassword(req, res)
+  } catch (error) {
+    return res.status(400).json({
+      error: error.message,
+    });
+  }
+}
 
 const deleteUser = async (req, res) => {
   try {
@@ -85,7 +106,7 @@ const deleteUser = async (req, res) => {
       msg: "user deleted",
     });
   } catch (error) {
-   return res.status(400).json({
+    return res.status(400).json({
       error: error.message,
     });
   }
@@ -93,7 +114,7 @@ const deleteUser = async (req, res) => {
 
 const senLinkPassword = (req, res) => {
   const { id } = req.body;
-
+  try {
   function generartoken(id) {
     //const expira = Math.floor(Date.now() / 1000) + (60 * 60 * 24)
     const token = sign({ id }, process.env.JWT_SECRET, { expiresIn: "1d" });
@@ -142,10 +163,10 @@ const senLinkPassword = (req, res) => {
     }
   });
 
-  try {
-   return res.status(200).json({ msg: "correo contra enviado con exito" });
+  
+    return res.status(200).json({ msg: "correo contra enviado con exito" });
   } catch (error) {
-   return res.status(400).json(error);
+    return res.status(400).json(error);
   }
 };
 
@@ -153,12 +174,12 @@ const logInUser = async (req, res) => {
   try {
     const { email, password } = req.body;
     const userLogIn = await User.findOne({ email });
-    if( userLogIn.strikes === 3){
-      return res.status(401).json ({
-         error: "Usuario Bloqueado",
-         locked:true
-       });
-      
+    if (userLogIn.strikes === 3) {
+      return res.status(401).json({
+        error: "Usuario Bloqueado",
+        locked: true
+      });
+
     }
     const pass = await compareSync(password, userLogIn.password);
     if (!pass || userLogIn.length == 0) {
@@ -191,4 +212,5 @@ module.exports = {
   logInUser,
   senLinkPassword,
   updateStrikes,
+  recoveryAdmin
 };
