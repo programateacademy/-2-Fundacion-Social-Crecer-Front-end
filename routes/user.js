@@ -24,7 +24,7 @@ routerUser.post('/user',
             .toLowerCase(),
         body('password')
             .trim()
-            .isLength(8)
+            .isLength({min:8,max:16})
             .withMessage('La contraseña requiere min 8 caracteres'),
         (req, res) => {
             let errors = validationResult(req);
@@ -45,7 +45,7 @@ routerUser.post('/login',
             .toLowerCase(),
         body('password')
             .trim()
-            .isLength(8),
+            .isLength({min:8,max:16}),
         (req, res) => {
             let errors = validationResult(req);
             if (!errors.isEmpty()) {
