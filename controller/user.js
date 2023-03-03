@@ -20,7 +20,7 @@ const saveUser = async (req, res) => {
     // Comprobar si el correo electrónico ya está registrado
     const user = await User.findOne({ email });
     if (user) {
-      return res.status(400).send({ error: "Email ya está registrado" });
+      return res.status(401).send({ error: "Email ya está registrado" });
     }
     // Encriptar la contraseña
     const pass = await hash(password, 10);
