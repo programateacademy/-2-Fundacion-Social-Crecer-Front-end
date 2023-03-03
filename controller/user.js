@@ -181,6 +181,11 @@ const logInUser = async (req, res) => {
       });
 
     }
+    await User.findByIdAndUpdate(userLogIn._id, {
+      $set: {
+        strikes: 0
+      },
+    });
     const pass = await compareSync(password, userLogIn.password);
     if (!pass || userLogIn.length == 0) {
       return res.status(404).json({
