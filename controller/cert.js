@@ -67,7 +67,7 @@ const generatePdf = (req, res) => {
         }
     }
 
-    const html = fs.readFileSync('const.html', 'utf-8')
+    const html = fs.readFileSync(path.resolve(__dirname, "../const.html"), 'utf-8')
 
     var options = {
         format: "A3",
