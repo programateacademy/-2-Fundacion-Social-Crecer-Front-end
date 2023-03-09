@@ -1,0 +1,585 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+
+$bg: #d9d9d9;
+$submit: #94ca36;
+$cancel: #aa3d3d;
+$txt-s: rgba(0, 0, 0, 0.7);
+
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   font-family: "Poppins", sans-serif;
+}
+
+.btn {
+   padding: 10px 20px;
+   border: none;
+   border-radius: 5px;
+   font-weight: bold;
+   color: white;
+   font-size: 1.2rem;
+   cursor: pointer;
+   width: 100%;
+}
+
+.submit {
+   background-color: $submit;
+}
+
+.cancel {
+   background-color: $cancel;
+}
+
+.login {
+   height: 100vh;
+   display: grid;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+   -webkit-appearance: none;
+}
+
+input {
+   height: 9vh;
+}
+
+header {
+   height: 80px;
+   padding: 0 40px;
+   display: flex;
+   justify-content: flex-start;
+   align-items: center;
+   gap: 5%;
+   background-color: $bg;
+
+   h1 {
+      font-size: clamp(1rem, 2vw, 1.5rem);
+   }
+
+   nav {
+      position: relative;
+      margin-left: auto;
+      align-self: stretch;
+      font-size: clamp(1.2rem, 2vw, 1.4rem);
+
+      &:hover ul {
+         transform: scaleY(1);
+      }
+
+      div {
+         font-size: clamp(0.9rem, 2vw, 1.3rem);
+         padding-left: 40px;
+         display: flex;
+         align-items: center;
+         gap: 10px;
+         height: 100%;
+         font-weight: bold;
+         cursor: pointer;
+
+         svg {
+            margin-top: 4px;
+         }
+      }
+
+      ul {
+         list-style: none;
+         width: max-content;
+         position: absolute;
+         top: 100%;
+         right: 0;
+         background-color: $bg;
+         transform-origin: top;
+         transform: scaleY(0);
+         transition: transform 0.2s ease;
+         z-index: 10;
+
+         li {
+            padding: 20px 30px;
+            cursor: pointer;
+         }
+
+         li:hover {
+            background-color: black;
+            color: white;
+         }
+      }
+   }
+}
+
+.adminps{
+   height: 100vh;
+   text-align: center;
+}
+
+.container {
+   width: 400px;
+   padding: 50px 20px;
+   margin: auto;
+   display: grid;
+   place-items: center;
+   gap: 50px;
+
+   form {
+      display: grid;
+      gap: 40px;
+      input{
+         width: 100%;
+      }
+   }
+   p{
+      color:steelblue;
+      text-align: center;
+      cursor: pointer;
+   }
+}
+
+.login-input {
+   position: relative;
+   margin-bottom: 15px;
+
+   svg {
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      margin-left: 15px;
+      color: $txt-s;
+   }
+
+   input {
+      font-size: 1.2rem;
+      padding: 10px 40px;
+   }
+
+   span {
+      position: absolute;
+      top: 105%;
+      left: 0;
+   }
+}
+
+.ReactModal__Overlay {
+   z-index: 50;
+}
+
+.ReactModal__Content {
+   .modal {
+      width: 100%;
+      height: 100%;
+
+      form {
+         padding: 30px 0;
+         display: grid;
+         gap: 20px;
+
+         input,
+         select {
+            width: 100%;
+         }
+
+         .btns {
+            padding: 0 20px;
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-around;
+            gap: 30px;
+         }
+      }
+   }
+}
+
+.modal {
+   position: relative;
+   inset: 0;
+   margin: auto;
+   width: 100vw;
+   background-color: $bg;
+   display: grid;
+   grid: min-content 1fr / 1fr;
+
+   header {
+      justify-content: center;
+      gap: 30px;
+      background-color: transparent;
+      height: 80px;
+   }
+
+   form {
+      /* display: grid; */
+
+      input:not(.btn),
+      select {
+         height: 40px;
+         border-radius: 5px;
+         padding-left: 10px;
+         border-color: $txt-s;
+      }
+   }
+
+   .file {
+      position: relative;
+      display: grid;
+      /* border: 2px solid;
+      border-radius: 10px; */
+
+      .dragzone {
+         border: 2px $txt-s solid;
+         border-radius: 20px;
+         padding: 20px;
+         display: grid;
+         place-items: center;
+         align-content: center;
+         text-align: center;
+         gap: 20px;
+      }
+      .drag {
+         color: white;
+         border-style: dashed;
+         background-color: $submit;
+         svg {
+            color: white;
+         }
+      }
+
+      label {
+         position: absolute;
+         //  background-color: #aa3d3d;
+         inset: 0;
+         margin: auto;
+         cursor: pointer;
+         z-index: 20;
+         svg {
+            position: absolute;
+            inset: 0;
+            margin: auto;
+            margin-left: 15px;
+            color: $txt-s;
+         }
+         input {
+            font-size: 1.2rem;
+            padding: 10px 40px;
+         }
+
+         span {
+            position: absolute;
+            top: 105%;
+            left: 0;
+         }
+      }
+   }
+}
+
+.close-modal {
+   background-color: rgb(196, 3, 3);
+   color: #fff;
+   border-radius: 5px;
+   position: absolute;
+   right: 30px;
+   top: 25px;
+   z-index: 10;
+   cursor: pointer;
+
+   &:hover {
+      background-color: $submit;
+   }
+}
+
+.add-c {
+   padding: 30px;
+   display: grid;
+   grid: 1fr / 80% 1fr;
+   gap: 20px;
+   min-height: calc(100% - 170px);
+
+   form {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      overflow-y: scroll;
+      padding: 0 20px 30px;
+
+      .submit {
+         align-self: center;
+         grid-column: span 2;
+      }
+   }
+}
+
+.hf{
+   grid: 1fr/1fr;
+   .file{
+      display: none;
+   }
+}
+
+.add-i {
+   display: flex;
+   flex-direction: column;
+   gap: 10px;
+}
+
+.obs {
+   grid-column: span 2;
+}
+
+.table {
+   margin-top: 10px;
+
+   p {
+      text-align: center;
+      color: white;
+      font-weight: bold;
+   }
+
+   div {
+      display: grid;
+      grid-column: span 2;
+      grid-template-columns: 1fr 150px;
+      padding: 10px 30px;
+      background-color: white;
+
+      &:nth-child(2n + 1) {
+         background-color: $bg;
+      }
+
+      &:first-of-type {
+         background-color: $submit;
+      }
+
+      place-items: center;
+   }
+
+   span {
+      text-align: center;
+   }
+   .btn{
+      width: auto;
+   }
+   button {
+      display: grid;
+   }
+}
+
+.filters {
+   margin: 5vh auto;
+   width: 95%;
+   display: flex;
+   justify-content: space-between;
+   flex-wrap: wrap;
+   align-items: center;
+   gap: 20px;
+
+   select {
+      background-color: $bg;
+      font-size: 1.2rem;
+      padding: 0 10px;
+   }
+
+   .options {
+      display: grid;
+      gap: 5px;
+      font-weight: bold;
+
+      select {
+         width: 200px;
+         height: 40px;
+         border-radius: 5px;
+      }
+   }
+
+   .actions {
+      border-radius: 5px;
+      padding: 10px;
+      display: grid;
+      grid: 1fr / repeat(2, min-content);
+      gap: 20px;
+      place-items: center;
+      cursor: pointer;
+      justify-content: center;
+
+      &:hover {
+         background-color: $bg;
+         outline: 1px solid black;
+      }
+   }
+
+   .search {
+      display: grid;
+      grid: 1fr / 200px min-content;
+      border: 2px solid black;
+      border-radius: 5px;
+
+      input {
+         border: none;
+         height: 50px;
+         padding: 0 10px;
+         font-size: 1.2rem;
+
+         &:focus {
+            outline: none;
+         }
+      }
+
+      select {
+         border: none;
+         border-radius: 0;
+         border-left: 2px solid black;
+      }
+   }
+}
+
+.certification {
+   display: flex;
+   height: calc(100vh - 80px);
+   align-items: center;
+   justify-content: center;
+   gap: 200px;
+   padding: 20px;
+
+   iframe {
+      height: 80vh;
+      width: 600px;
+   }
+
+   .btncert {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+      form {
+         display: grid;
+         gap: 40px;
+         .formEmail {
+            display: grid;
+            gap: 20px;
+         }
+         button {
+            height: 50px;
+         }
+      }
+   }
+
+   button,
+   a {
+      width: 340px;
+      height: 124px;
+      border-radius: 10px;
+      color: white;
+      border: none;
+      font-size: clamp(1.4rem, 3vw, 1.8rem);
+      text-decoration: none;
+      text-align: center;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+   }
+
+   a {
+      background-color: #94ca36;
+   }
+
+   button {
+      background-color: #18006c;
+   }
+
+   input {
+      width: 340px;
+      border-radius: 10px;
+      padding-left: 20px;
+   }
+}
+
+.restCont{
+   display: flex;
+   gap:10px;
+   margin: 20px;
+
+}
+
+//-------TABLE Mardelys-------------
+.container-table {
+   width: 90%;
+   margin: auto;
+}
+
+.actions {
+   > div {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      svg {
+         cursor: pointer;
+      }
+   }
+}
+
+.MuiDataGrid-columnHeaderTitle {
+   font-weight: bold;
+}
+
+.MuiDataGrid-row:hover,
+.css-1e2bxag-MuiDataGrid-root .MuiDataGrid-row.Mui-hovered {
+   background-color: $submit !important;
+   color: white !important;
+}
+
+.MuiDataGrid-row:nth-child(2n) {
+   background: $bg;
+}
+
+//-----------Media Queries -----
+@media (min-width: 320px) and (max-width: 1000px) {
+   .add-c {
+      padding: 10px;
+      grid: none;
+   }
+   .certification {
+      flex-wrap: wrap;
+      gap: 100px;
+   }
+}
+@media (max-width: 700px) {
+   header {
+      justify-content: space-between;
+      padding: 0;
+      nav ul {
+         width: 100vw;
+      }
+   }
+   .filters {
+      justify-content: center;
+   }
+   .certification iframe {
+      height: 60vh;
+      width: 400px;
+   }
+   .add-c form {
+      grid-template-columns: repeat(2, 1fr);
+   }
+}
+@media (min-width: 320px) and (max-width: 480px) {
+   header {
+      display: grid;
+      grid-template-columns: 30% 60%;
+      height: 110px;
+      nav div{
+         padding-left: 40vw;
+        
+      }
+   }
+  .filters .search{
+   grid: 1fr/150px min-content;
+  }
+   .certification button,
+   .certification a {
+      width: 90%;
+      margin: auto;
+   }
+   .ReactModal__Content.ReactModal__Content--after-open {
+      width: 100vw !important;
+   }
+
+  
+
+   
+}
